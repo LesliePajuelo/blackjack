@@ -5,10 +5,7 @@ class window.Hand extends Backbone.Collection
 
   hit: ->
     @add(@deck.pop())
-    if @scores()[0] > 21
-      $('.hit-button').attr('disabled', true)
-      alert 'player lost - hand collection - hit'
-       
+    @trigger 'checkBust', @
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
@@ -24,5 +21,12 @@ class window.Hand extends Backbone.Collection
     # when there is an ace, it offers you two scores - the original score, and score + 10.
     [@minScore(), @minScore() + 10 * @hasAce()]
 
-
+# bestScore checks for the better of two and returns that array positon
+  bestScore: ->
+    if @scores()[1] > 21 
+      return @scores()[0]
+    else 
+      return @scores()[1]
+    
+  
 

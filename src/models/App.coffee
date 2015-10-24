@@ -8,29 +8,34 @@ class window.App extends Backbone.Model
 
   # deck for my dealer and player
 
-    @get 'playerHand' 
-      .on 'stand', @getResult
+    @get 'playerHand'
+      .on 'checkBust', @checkBust
 
 
   getResult: ->
     $('.stand-button').attr('disabled', true)
     @get('dealerHand').models[0].flip()
-    while @get('dealerHand').scores()[0] < 17
+    while @get('dealerHand').bestScore() < 17
       @get('dealerHand').hit()
     @checkWinner()
 
   checkWinner: ->
-    if @get('dealerHand').scores(0) > 21
-      alert 'player wins! app model - check winner 1'
-      if @get('dealerHand').scores(0) > @get('playerHand').scores(0)
-        alert 'Dealer wins app model - check winner 2'
-    alert 'Player wins app model - check winner 3'
+    if @get('playerHand').bestScore() == 21
+      alert 'player wins! app model - player == 21'
+    if @get('dealerHand').bestScore() > 21
+      alert 'player wins! app model - dealer > 21'
+    else 
+      if @get('dealerHand').bestScore() > @get('playerHand').bestScore()
+        alert 'Dealer wins app model - dealer > player'
+      else alert 'Player wins app model - last check'
 
   checkBust: ->
-    if @get('playerHand').scores(0) > 21
-      alert 'player lose'
-      
+    console.log @bestScore()
     
+    if @bestScore() > 21
+      alert 'player lose - check bust'
+      $('.hit-button').attr('disabled', true)
+      
 
     #  console.log(@get('playerHand').scores())
     # console.log @get('playerHand').scores()
