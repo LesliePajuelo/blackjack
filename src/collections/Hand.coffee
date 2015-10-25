@@ -5,7 +5,11 @@ class window.Hand extends Backbone.Collection
 
   hit: ->
     @add(@deck.pop())
-    @trigger 'checkBust', @
+    that = @
+    setTimeout ->
+        that.trigger 'checkBust', that
+        return
+      , 50
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1

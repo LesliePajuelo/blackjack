@@ -5,9 +5,6 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
-
-  # deck for my dealer and player
-
     @get 'playerHand'
       .on 'checkBust', @checkBust
 
@@ -29,12 +26,7 @@ class window.App extends Backbone.Model
       else alert 'Player wins!'
 
   checkBust: ->
-    console.log @bestScore()
     
     if @bestScore() > 21
-      alert 'player lose - check bust'
+      alert 'Dealer wins!'
       $('.hit-button').attr('disabled', true)
-      
-
-    #  console.log(@get('playerHand').scores())
-    # console.log @get('playerHand').scores()
