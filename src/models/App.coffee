@@ -17,17 +17,16 @@ class window.App extends Backbone.Model
     @get('dealerHand').models[0].flip()
     while @get('dealerHand').bestScore() < 17
       @get('dealerHand').hit()
-    @checkWinner()
-
+    
   checkWinner: ->
     if @get('playerHand').bestScore() == 21
-      alert 'player wins! app model - player == 21'
+      alert 'Player wins!'
     if @get('dealerHand').bestScore() > 21
-      alert 'player wins! app model - dealer > 21'
+      alert 'Player wins!'
     else 
       if @get('dealerHand').bestScore() > @get('playerHand').bestScore()
-        alert 'Dealer wins app model - dealer > player'
-      else alert 'Player wins app model - last check'
+        alert 'Dealer wins!'
+      else alert 'Player wins!'
 
   checkBust: ->
     console.log @bestScore()
